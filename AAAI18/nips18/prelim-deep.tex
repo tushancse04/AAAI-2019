@@ -1,0 +1,28 @@
+\section{Background}
+\subsection{Markov Logic Networks} Markov logic networks (MLNs) are template models that define uncertain, relational knowledge as first-order formulas with weights. Weights encode uncertainty in a formula. $\infty$ weight formulas are hard constraints which should always be true. Similarly formulas with $-\infty$ weights are always false. Thus, MLNs offer a flexible framework to mix hard and soft formulas. In MLNs, we assume that each argument of each predicate in the MLN is typed and can only be assigned to a finite set of constants. By extension, each logical variable in each formula is also typed. Thus, each variable corresponds to a specific domain of objects. A ground atom is an atom where each of its variables have bee substituted by constants from their respective domains. A ground formula is a formula containing only ground atoms.
+
+Given a set of constants that represent the domains of variables in the MLN, an MLN represents a factored probability distribution over the possible worlds, in the form of a Markov network. A world in an MLN is an assignment of 0/1 to all ground atoms of the MLN. Specifically, the distribution is given by,
+ \begin{align} \Pr(\omega) &
+= \frac{1}{Z} \exp \left ( \sum_{i} w_i N_{i}(\omega) \right ) \label{eq:mln_prob_dist}
+\end{align} where $w_i$ is the weight of formula $f_i$, $N_{i}({\omega})$ is the number of groundings of formula $f_i$ that evaluate to True given a world
+$\omega$, and $Z$ is the normalization constant.
+
+The two common inference problems over MLNs are (1) given observed evidence, compute the marginal probability distribution of a ground atom in the ground Markov network (2) given observed evidence, compute the most probable assignment to all non-evidence atoms. Both queries are computationally hard, and therefore require approximate inference methods.
+\eat{
+Important inference queries in MLNs are computing the partition function, finding the
+marginal probability of an atom given evidence (an assignment to a subset of variables) and finding
+the most probable assignment to all atoms given evidence (MAP inference). Here, we focus on the marginal inference problem.
+}
+\eat{
+As a simple example of an MLN, suppose we want to encode the fact that smokers and asthmatics are not friends. We would design an MLN with a formula such as $\texttt{Smokes}(x)$ $\wedge$ $\texttt{Friends}(x,y)$ $\Rightarrow$ $\neg Asthma(y)$. Given constants corresponding to the variables, $x$ and $y$, the MLN represents a joint distribution over all ground atoms of $\texttt{Smokes}$, $\texttt{Friends}$, and $\texttt{Asthma}$. The two key tasks in MLNs are {\em weight learning}, which is the task of learning 
+the weights attached to the formulas from a relational database, and {\em inference} (prediction),
+which is the task of answering queries posed over the learned model given observations (evidence database).
+The two main inference problems over MLNs are (1) posterior or marginal estimation which involves finding the marginal probability distribution of a random variable (ground atom) in the ground Markov network given an evidence database. For example computing the probability that $\texttt{Smokes}(Ana)$ is true given $\texttt{Smokes}(Bob)$ is true and $\texttt{Friends}(Ana, Bob)$ is true. (2) Maximum-a-posteriori (MAP) estimation which involves finding an assignment of values to all non-evidence variables such that the assignment has the maximum probability. For example, given that $\texttt{Smokes}(Ana)$, $\texttt{Smokes}(Bob)$ and $\texttt{Friends}(Ana, Bob)$ is true, what is the assignment to all other ground atoms in the MLN such that their joint probability is maximum.
+
+Both marginal inference and MAP inference are \#P-hard and NP-hard in general respectively. Several interesting tasks such as structured prediction and joint inference are special cases of these inference tasks. 
+Weights attached to first-order formulas can be learned either {\em generatively}, in which the goal is to find weights that maximize the log-likelihood of the data, or {\em discriminatively}, in which the goal is to maximize the conditional log-likelihood of the data given evidence. In principle, both tasks can be solved using a standard gradient ascent procedure with appropriate regularization constraints. However, it turns out that computing the gradient is computationally intractable, since the problem of computing the gradient can be reduced to the posterior marginal estimation task. Therefore, practitioners often use alternate objective criteria such as contrastive divergence \cite{hinton02}, voted perceptron \cite{collins02}, and pseudo log-likelihood \cite{besag75} since the gradient of these functions is easier to compute.
+}
+
+\subsection{Skip-Gram Models}
+
+Skip-gram models are used to learn an embedding over words based on the context in which they appear in the training data (i.e., neighboring words). Word2vec~\cite{mikolov&al13} is a popular model of this type, where we train a neural network based on pairs of words seen in the training data. Specifically, we use a sliding window of a fixed size, and generate all pairs of words within that sliding window. For each pair of words, we present one word of the pair as input, and the other word as a target. That is, we learn to predict a word based on its context or neighboring words. The hidden layer typically has a much smaller number of dimensions as compared to the input/output layers. Thus, the hidden-layer learns a low-dimensional embedding that is capable of mapping words to their contexts. Typically the hidden-layer output is used as features for other text processing tasks, as opposed to using hand-crafted features.

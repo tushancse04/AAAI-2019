@@ -1,0 +1,64 @@
+\subsection{Reducing the Objects}
+
+We reduce the number of objects in the MLN by reducing the number of symmetric objects. Let $\hat{\Delta}_i$  $\subseteq$ $\Delta_i$, and let $d(X_j,X_k)$ denote the distance between the vectors for $X_j$ and $X_k$ in the embedded vector-space, where $X_j$, $X_k$ $\in$ $\Delta_i$. We wish to find the subset $\hat{\Delta}_i$ such that the elements in $\hat{\Delta}_i$ are closest to elements in  $\hat{\Delta}'_i$ $=$ $\hat{\Delta}_i$ $\setminus$ $\hat{\Delta}_i$ in the embedded vector-space. Given a set $A$, let $\mathcal{N}(X,A)$ $=$ $\arg\min_{X'\in A}$ $d(X,X')$ . We define our objective for $\Delta_i$ to be,
+
+\begin{equation}
+\arg\min_{\hat{\Delta}_i\subseteq\Delta_i}\sum_{X\in\hat{\Delta}_i} d(X,\mathcal{N}(X,\hat{\Delta}'_i)
+\end{equation}
+
+with the constraint that $|\hat{\Delta}_i|$ $\leq$ $\alpha$. This is required to ensure that our chosen subset of objects is small enough to ensure feasibility of inference. The above problem is a special case of the weighted set-cover problem, and is therefore it is NP-hard to compute the optimal solution. Therefore, we approximate the solution using a greedy approach as follows. We start with an empty $\hat{\Delta}_i$. In each iteration, we sample an object from the pair of objects with closest distance and add it to $\hat{\Delta}_i$. Specifically, in each iteration $t$, we compute,
+
+
+\begin{equation}
+X^t = \arg\min_{X\in\hat{\Delta}'_i}d(X,\mathcal{N}(X,\hat{\Delta}'_i\setminus{X}))
+\end{equation}
+
+We now sample either $X^t$ or $\mathcal{N}(X^t,\hat{\Delta}'_i\setminus{X^t})$ with equal probability and add the sampled object, $\bar{X}^t$ to $\hat{\Delta}_i$. We now remove the non-sampled object along with its neighboring object from $\hat{\Delta}'_i$ in a recursive manner. That is, suppose the non-sampled object is $\bar{X}^t_0$, we remove $\bar{X}^t_0$, $\bar{X}^t_1$ $=$ $\mathcal{N}(\bar{X}^t_0,\hat{\Delta}'_i\setminus{\bar{X}^t_0})$, $\bar{X}^t_2$ $=$ $\mathcal{N}(\bar{X}^t_1,\hat{\Delta}'_i\setminus{\bar{X}^t_1})$, and so on. Thus, in each iteration, we remove a cluster of neighbors that are symmetric with the sampled object added to $\hat{\Delta}_i$. We denote the neighborhood of $\bar{X}^t$ by $\mathcal{H}(\bar{X}^t)$. All inference results obtained on $\bar{X}^t$ are assumed to hold for $\mathcal{H}(\bar{X}^t)$.
+
+We stop adding elements to $\hat{\Delta}_i$ when $|\hat{\Delta}_i|$ $\geq$ $\alpha$. However, one problem with this greedy approach is that the solution may get struck in local optima. That is, we may add an element that is close to a few objects, and miss elements that may be symmetrical to many objects even though they may not be the closest pair during an iteration. To avoid local optima, we use a commonly used technique employed in methods such as MaxWalkSAT~\cite{kautz&al97b}. Specifically, we intersperse random walks in the solution-space along with the greedy iterations. That is, with probability $p$, we choose a pair $(X$, $\mathcal{N}(X,\hat{\Delta}'_i\setminus{X}))$, where $X$ $\in$ $\hat{\Delta}'_i$ uniformly at random, and sample an object with probability 0.5 from this pair. As before, we remove the non-sampled object and its neighbors recursively from $\hat{\Delta}'_i$. With probability $1-p$, we choose the pair from which we sample the object greedily.
+
+Given the new domains $\hat{\Delta}_1$, $\ldots$ $\hat{\Delta}_k$, we change the evidence database $\mathcal{D}$, by removing all evidences that contain objects that are not in the new domains. We map the results obtained from inference using the new evidence database to inference results on the original MLN as follows. The inference results (marginal probability, MAP assignment, etc.) obtained after conditioning on the changed evidence, for an atom grounded with objects $X_1$ $\ldots$ $X_k$ is assumed to hold for all atoms in the original MLN grounded with objects $\mathcal{H}(X_1)$ $\times$ $\ldots$ $\times$ $\mathcal{H}(X_k)$.  Our complete approach is summarized in Algorithm 1.
+
+\begin{algorithm}[!t]{
+\label{alg:wvec}
+\linesnumbered
+\caption{Obj2Vec Lifting}
+\KwIn{MLN structure $\mathcal{M}$, Evidence $\mathcal{D}$, Inference algorithm $\mathcal{I}$, embedding dimensions $m$, object bound $\alpha$}
+\KwOut{Inference results $R$}
+\tcp{Encoding}
+\For{each predicate pair $({\tt R}_i,{\tt R}_j)$}
+{
+\For{each formula $f$ in $\mathcal{M}$} {
+$f'$ $=$ Eliminate all atoms not corresponding to $({\tt R}_i,{\tt R}_j)$\\
+Encode groundings of $f'$ satisfied by $\mathcal{D}$ as sentences in document $D$\\
+}
+}
+\tcp{Embedding}
+$H$ $=$ Learn a model from $D$ to create a $m$-dimension embedding\\
+\tcp{Sampling Objects}
+\For{each domain} {
+$\Delta_i$ $=$ original domain\\
+$\hat{\Delta}_i$ $=$ $\{\}$\\
+\While{$|\hat{\Delta}_i|$ $\leq$ $\alpha$} {
+$X^t$ $=$ With probability $p$, sample an object from $\Delta_i$ with the closest object-pair\\
+$X^t$ $=$ With probability $1-p$, sample an object from $\Delta_i$ from an object-pair chosen uniformly at random\\
+$\hat{\Delta}_i$ $=$ $X^t\cup \hat{\Delta}_i$
+Remove $X^t$ and $\mathcal{H}(X^t)$ from $\Delta_i$\\
+}
+}
+\tcp{Inference}
+Convert $\mathcal{D}$ to $\mathcal{D}'$ using new domains $\hat{\Delta}_1$, $\ldots$ $\hat{\Delta}_n$\\
+$R'$ $=$ Run $\mathcal{I}$ on $\mathcal{M}$ conditioning on $\mathcal{D}'$\\
+$R$ $=$ Project $R$ on original atoms\\
+return $R$\\
+}
+\end{algorithm}
+
+%Therefore, we want to penalize those objects that have small neighborhoods. To do this, we form clusters of objects from  the 
+
+%We now  remove the non-sampled object (either $X^t$ or $\mathcal{N}(X^t,\hat{\Delta}'_i\setminus{X^t})$) from $\hat{Delta}'_i$ . 
+%for every object $X$ $\in$ $\hat{\Delta}_i$ $\setminus$ $\hat{\Delta}_i$, we compute $\mathcal{N}(X)$ and add $Y$ $\in$ $\hat{\Delta}_i$ $\setminus$ $\hat{\Delta}_i$
+
+%Specifically, let $X_i,X_j\in\Delta_i$ and let $d(X_1,X_2)$ be the distance between the vector representations in the low-dimensional embedding for objects $X_1$ and $X_2$. 
+
+%and let $\hat{\Delta}'_i$ be its complement, $\hat{\Delta}_i$ $\setminus$ $\hat{\Delta}_i$

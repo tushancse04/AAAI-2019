@@ -1,0 +1,111 @@
+%%%% ijcai18.tex
+
+
+
+% These are the instructions for authors for IJCAI-18.
+% They are the same as the ones for IJCAI-11 with superficical wording
+%   changes only.
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+% \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading nips_2018
+
+% ready for submission
+\usepackage{nips_2018}
+
+% Use the postscript times font!
+\usepackage{times}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage[utf8]{inputenc}
+\usepackage[small]{caption}
+
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{xspace}
+\usepackage{paralist}
+\usepackage{multirow}
+\usepackage{caption,latexsym}
+\usepackage[ruled,vlined,oldcommands]{algorithm2e}
+\usepackage{wrapfig}
+\newcounter{theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{thrm}{Theorem}
+
+% the following package is optional:
+%\usepackage{latexsym} 
+
+% Following comment is from ijcai97-submit.tex:
+% The preparation of these files was supported by Schlumberger Palo Alto
+% Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
+% Shirley Jowell, of Morgan Kaufmann Publishers, and Peter F.
+% Patel-Schneider, of AT\&T Bell Laboratories collaborated on their
+% preparation.
+
+% These instructions can be modified and used in other conferences as long
+% as credit to the authors and supporting agencies is retained, this notice
+% is not changed, and further modification or reuse is not restricted.
+% Neither Shirley Jowell nor Peter F. Patel-Schneider can be listed as
+% contacts for providing assistance without their prior permission.
+
+% To use for other conferences, change references to files and the
+% conference appropriate and use other authors, contacts, publishers, and
+% organizations.
+% Also change the deadline and address for returning papers and the length and
+% page charge instructions.
+% Put where the files are available in the appropriate places.
+\newcommand{\eat}[1]{}
+
+\title{Approximate Lifted Inference in MLNs using Neural Embeddings}
+
+% Single author syntax
+
+
+% Multiple author syntax (remove the single-author syntax above and the \iffalse ... \fi here)
+\iffalse
+\author{
+First Author$^1$, 
+Second Author$^2$, 
+Third Author$^3$, 
+\\ 
+$^1$ First Affiliation \\
+$^2$ Second Affiliation\\
+$^3$ Third Affiliation  \\
+%
+first@email.address,
+second@email.address,
+third@email.address
+}
+% If your authors do not fit in the default space, you can increase it 
+% by uncommenting the following (adjust the "2.5in" size to make it fit
+% properly)
+% \setlength\titlebox{2.5in}
+\fi
+
+\begin{document}
+
+\maketitle
+\input{abs}
+\input{intro}
+\input{prelim-deep}
+\input{related}
+\input{embed}
+\input{sample}
+\input{exps}
+\input{conclusion}
+%% The file named.bst is a bibliography style file for BibTeX 0.99c
+%\bibliographystyle{named}
+ \bibliographystyle{plain}
+\bibliography{all}
+
+\end{document}
+

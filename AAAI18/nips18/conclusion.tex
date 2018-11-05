@@ -1,0 +1,5 @@
+\section{Conclusion}
+
+In this paper, we presented a novel approach to perform approximate lifted inference in MLNs by leveraging neural embeddings. Specifically, our idea was to exploit the fact that objects with similar contexts (other objects that appear with the object in ground formulas), are likely to be symmetric. Therefore, we encoded the context of an object and trained a neural network on this encoding such that the hidden layer embeds objects in a low-dimensional vector space, where similar objects lie close to each other in this space. We then reduced the number of objects in the MLN by retaining a subset of objects that are close in the embedded-space to the remaining objects that were eliminated from the MLN. Our experiments on real-world datasets showed that our approach is efficient and accurate.
+
+Future work includes leveraging neural models to perform weight and structure learning in MLNs.

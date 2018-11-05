@@ -1,0 +1,65 @@
+[
+    {
+        "categorie": "ER", 
+        "values": [
+            {
+                "value": 90.8, 
+                "rate": "Obj2Vec"
+            }, 
+            {
+                "value": 79, 
+                "rate": "VG"
+            }, 
+            {
+                "value": 48.3, 
+                "rate": "Random"
+            }, 
+            {
+                "value": 59, 
+                "rate": "BMF"
+            }
+        ]
+    }, 
+    {
+        "categorie": "Protein", 
+        "values": [
+            {
+                "value": 93, 
+                "rate": "Obj2Vec"
+            }, 
+            {
+                "value": 89.6, 
+                "rate": "VG"
+            }, 
+            {
+                "value": 71.6, 
+                "rate": "Random"
+            }, 
+            {
+                "value": 75, 
+                "rate": "BMF"
+            }
+        ]
+    }, 
+    {
+        "categorie": "Webkb", 
+        "values": [
+            {
+                "value": 91.5, 
+                "rate": "Obj2Vec"
+            }, 
+            {
+                "value": 84.5, 
+                "rate": "VG"
+            }, 
+            {
+                "value": 47, 
+                "rate": "Random"
+            }, 
+            {
+                "value": 71, 
+                "rate": "BMF"
+            }
+        ]
+    }
+]

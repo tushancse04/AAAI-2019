@@ -1,0 +1,31 @@
+marginal result => cr : 0.6 
+marginal result => cr : 0.6 
+bmf error : 37.29838709677422
+marginal result => cr : 0.6 
+bmf error : 42.24872231686542
+map result => cr : 0.6 
+embedding size: 200database : bmf 
+Recall : 0.0 
+marginal result => cr : 0.6 
+Calculating performance for tuffymarginal result => cr : 0.6 
+Calculating performance for tuffyw2v error : 52.27968738515966
+random error : 108.57300884955687
+kmeans error : 70.42717158313843
+Calculating performance for magicianmap result => cr : 0.6 
+embedding size: 200database : bmf 
+Recall : 0.0 
+database : w2v 
+Recall : 1.0 
+f_score1 : 0.18181818181818182 
+Precision : 0.01 
+f_score2 : 0.019801980198019802 
+database : random 
+Recall : 0.23 
+f_score1 : 0.0368 
+Precision : 0.0 
+f_score2 : 0.0 
+database : kmeans 
+Recall : 1.0 
+f_score1 : 0.16513761467889906 
+Precision : 0.0 
+f_score2 : 0.0 

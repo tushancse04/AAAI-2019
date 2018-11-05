@@ -1,0 +1,58 @@
+marginal result => cr : 0.78 
+Calculating performance for tuffybmf error : 0.9666703089456906
+w2v error : 0.16257324144630864
+random error : 0.20664051027554478
+kmeans error : 0.15239899998858347
+Calculating performance for magicianmap result => cr : 0.78 
+embedding size: 300marginal result => cr : 0.78 
+Calculating performance for tuffybmf error : 0.9666703089456906
+w2v error : 0.16257324144630864
+random error : 0.21236831890317742
+kmeans error : 0.15239899998858347
+Calculating performance for magicianmap result => cr : 0.78 
+embedding size: 200database : bmf 
+Recall : 1.0 
+f_score1 : 1.0 
+Precision : 1.0 
+f_score2 : 1.0 
+database : w2v 
+Recall : 1.0 
+f_score1 : 1.0 
+Precision : 1.0 
+f_score2 : 1.0 
+database : random 
+Recall : 1.0 
+f_score1 : 0.8235294117647058 
+Precision : 0.58 
+f_score2 : 0.7341772151898733 
+database : kmeans 
+Recall : 1.0 
+f_score1 : 1.0 
+Precision : 1.0 
+f_score2 : 1.0 
+marginal result => cr : 0.78 
+Calculating performance for tuffybmf error : 0.5800543029560301
+w2v error : 0.1500731397910806
+random error : 0.21583756801053647
+kmeans error : 0.1500631920095619
+Calculating performance for magicianmap result => cr : 0.78 
+embedding size: 200database : bmf 
+Recall : 1.0 
+f_score1 : 1.0 
+Precision : 1.0 
+f_score2 : 1.0 
+database : w2v 
+Recall : 1.0 
+f_score1 : 1.0 
+Precision : 1.0 
+f_score2 : 1.0 
+database : random 
+Recall : 1.0 
+f_score1 : 0.8165680473372781 
+Precision : 0.55 
+f_score2 : 0.7096774193548387 
+database : kmeans 
+Recall : 1.0 
+f_score1 : 1.0 
+Precision : 1.0 
+f_score2 : 1.0 

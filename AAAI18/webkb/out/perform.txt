@@ -1,0 +1,2 @@
+marginal result => cr : 0.98 
+Calculating performance for tuffy
